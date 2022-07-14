@@ -189,10 +189,13 @@ let startRead = () => {
                 <el-card style="background-color: rgba(255,255,255,0.9)" class="left-item">
                     <div slot="header" class="total">
                         <div class="title">
-                            <i v-if="selected" class="el-icon-back" @click="updateBlogList"></i>
-                            <span>{{ selectMethod }}</span>
+                            <span style="font-size: 17px">{{ selectMethod }}</span>
                         </div>
-                        <span>共 <span style="color: #3a8ee6; font-size: 20px">{{ totalcount }}</span> 篇</span>
+                        <span style="font-size: 17px">共
+                            <span style="color: #3a8ee6; font-size: 20px">
+                                {{ totalcount }}
+                            </span> 篇
+                        </span>
                     </div>
                     <el-row type="flex" align="middle" style="flex-wrap: wrap" :gutter="20" v-for="blog in blogList"
                         :key="blog.id" shadow="never" class="animate__animated animate__fadeInUp blog-content">
