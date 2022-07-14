@@ -8,30 +8,40 @@ const routes = [
         component: () => import('../components/Error.vue')
     },
     {
-        path: '/',
+        path: '/login',
         name: 'login',
         component: () => import('../views/LoginView.vue')
+    },
+    {
+        path: '/',
+        component: () => import("../views/IndexView.vue"),
+        redirect: '/index',
+        children: [
+            { path: '/index', component: () => import("../components/Index.vue") },
+            { path: '/about', component: () => import("../components/About.vue") },
+            { path: '/blogInfo', component: () => import("../components/Article.vue") },
+            { path: '/project', component: () => import("../components/Project.vue") },
+            { path: '/comment', component: () => import("../components/Comment.vue") },
+            { path: '/essay', component: () => import("../components/Essay.vue") },
+        ]
     },
     {
         path: '/admin',
         component: () => import('../views/HomeView.vue'),
         // 挂载路由导航守卫
-        // beforeEnter: (to, from, next) => {
-        //     // to 将要访问的路径
-        //     // from 代表从哪个路径跳转而来
-        //     // next 是一个函数，表示放行
-        //     // next() 放行  next('login') 强制跳转
-        //     const userInfo = JSON.parse(window.sessionStorage.getItem('user'))
-        //     // console.log(userInfo)
-        //     if (!userInfo) return next('/error')
-        //     else {
-        //         const type = userInfo.type
-        //         // console.log(type)
-        //         if (type !== '1') return next('/error')
-        //         next()
-        //     }
-        //     next()
-        // },
+        beforeEnter: (to, from, next) => {
+            // to 将要访问的路径
+            // from 代表从哪个路径跳转而来
+            // next 是一个函数，表示放行
+            // next() 放行  next('login') 强制跳转
+            const adminInfo = JSON.parse(window.sessionStorage.getItem('admin'))
+            if (!adminInfo) return next('/error')
+            else {
+                const administrator = adminInfo.administrator
+                if (!administrator) return next('/error')
+                next()
+            }
+        },
         redirect: '/admin/index',
         children: [
             { path: '/admin/index', component: () => import('../components/admin/Index.vue') },
