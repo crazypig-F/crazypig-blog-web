@@ -1,67 +1,51 @@
 <script setup>
-import { ElContainer, ElHeader, ElAside, ElMenu, ElMenuItem, ElMain } from "element-plus";
 import { ref, reactive } from "vue";
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const adminInfo = JSON.parse(window.localStorage.getItem("admin"));
 let menulist = reactive([
-    { id: 0, path: '/admin/index', authName: '后台首页' },
-    { id: 1, path: '/admin/blog', authName: '博客管理' },
-    { id: 2, path: '/admin/user', authName: '用户管理' },
-    { id: 3, path: '/admin/blog-input', authName: '撰写博客' },
-    { id: 4, path: '/admin/type', authName: '分类管理' },
-    { id: 5, path: '/admin/tag', authName: '标签管理' },
-    { id: 6, path: '/admin/comment', authName: '评论管理' },
-    { id: 7, path: '/admin/essay', authName: '随笔管理' },
-    { id: 8, path: '/admin/project', authName: '项目管理' },
-    { id: 9, path: '/admin/administrator', authName: '个人中心' },
-    { id: 10, path: '/admin/picture', authName: '图片管理' },
-])
-let iconsObj = reactive({
-    '0': 'iconfont icon-menu_home',
-    '1': 'iconfont icon-huaban',
-    '2': 'iconfont icon-guanyuwo1',
-    '3': 'iconfont icon-jilu',
-    '4': 'iconfont icon-leimupinleifenleileibie2',
-    '5': 'iconfont icon-biaoqian',
-    '6': 'iconfont icon-pinglun',
-    '7': 'iconfont icon-jilu2',
-    '8': 'iconfont icon-houtaiguanli',
-    '9': 'iconfont icon-gerenzhongxin1',
-    '10': 'iconfont icon-jinengliang',
-})
-let isCollapse = ref(false)
+    { id: 0, path: "/admin/index", authName: "后台首页" },
+    { id: 1, path: "/admin/blog", authName: "博客管理" },
+    { id: 2, path: "/admin/user", authName: "用户管理" },
+    { id: 3, path: "/admin/blog-input", authName: "撰写博客" },
+    { id: 4, path: "/admin/type", authName: "分类管理" },
+    { id: 5, path: "/admin/tag", authName: "标签管理" },
+    { id: 6, path: "/admin/administrator", authName: "个人中心" },
+]);
+let isCollapse = ref(false);
 // 被激活的动态地址
-let activePath = ref("")
-let userInfo = reactive({
-    avatar: ''
-})
-// let screenWidth = document.documentElement.clientWidth
+let activePath = ref("");
 
 const toggleCollapse = () => {
-    isCollapse.value = !isCollapse.value
+    isCollapse.value = !isCollapse.value;
+};
+
+let logout = () => {
+    window.localStorage.removeItem('admin')
+    router.push("/login")
 }
 </script>
 <template>
-    <el-container style="width: 100%;max-width: 100%;">
+    <el-container style="width: 100%; max-width: 100%">
         <el-aside :width="calculateStyle + 'px'">
             <el-menu :default-active="activePath" class="el-menu-vertical-demo" unique-opened :collapse="isCollapse"
                 :collapse-transition="false" router active-text-color="#409FFF">
                 <!--            一级菜单-->
                 <el-menu-item :index="item.path" v-for="item in menulist" :key="item.id">
-                    <i :class="iconsObj[item.id]"></i>
                     <span>{{ item.authName }}</span>
                 </el-menu-item>
             </el-menu>
         </el-aside>
         <div style="width: 100%">
             <el-header>
-                <div class="toggle-button" @click="toggleCollapse">|||
-                </div>
+                <div class="toggle-button" @click="toggleCollapse">|||</div>
                 <div>
                     <span>博客后台管理系统</span>
                 </div>
                 <div class="loginInfo">
-                    <el-avatar :src="userInfo.avatar"></el-avatar>
+                    <el-avatar :src="adminInfo.avatar"></el-avatar>
                     <div class="user-option">
-                        <h3 class="web-font nickname">{{ userInfo.nickname }}</h3>
+                        <h3 class="web-font nickname">{{ adminInfo.nickName }}</h3>
                         <p class="logout" @click="logout">退出登录</p>
                     </div>
                 </div>
@@ -195,23 +179,22 @@ const toggleCollapse = () => {
 
     .el-avatar {
         transform: translate(0, 50%) scale(1.5);
-        transition: .3s;
+        transition: 0.3s;
     }
 
     .user-option {
         visibility: visible;
         opacity: 1;
-        transition: .4s;
+        transition: 0.4s;
     }
 }
 
 @media screen and (max-width: 768px) {
-
     .el-aside {
         position: absolute;
         z-index: 2000;
         top: 60px;
-        transition: all .2s;
+        transition: all 0.2s;
         width: 100%;
         min-height: 0;
         background-color: transparent;

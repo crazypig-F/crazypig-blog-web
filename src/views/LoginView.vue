@@ -1,15 +1,16 @@
 <script setup>
 import { ref, reactive } from "vue";
 import { ElMessage } from 'element-plus'
-import { useRouter } from 'vue-router';
 import axios from 'axios'
+import { useRouter } from 'vue-router';
 const router = useRouter();
 // 管理员用户信息
 let adminInfo = reactive({
     nickName: '',
     avatar: '',
     administrator: false,
-    logined: false
+    logined: false,
+    token: ''
 })
 
 let adminInfoReset = () => {
@@ -17,6 +18,7 @@ let adminInfoReset = () => {
     adminInfo.nickName = ''
     adminInfo.administrator = false
     adminInfo.logined = false
+    adminInfo.token = ''
 }
 
 let waiting = ref(false)
@@ -37,8 +39,10 @@ let loginHandle = () => {
             adminInfo.nickName = res.data.data.user.nickName
             adminInfo.avatar = res.data.data.user.avatar
             adminInfo.administrator = res.data.data.user.administrator
+            adminInfo.token = res.data.data.token
             adminInfo.logined = true
-            window.sessionStorage.setItem('admin', JSON.stringify(adminInfo))
+            console.log(adminInfo);
+            window.localStorage.setItem('admin', JSON.stringify(adminInfo))
             ElMessage({
                 message: '登录成功',
                 type: 'success',
@@ -47,15 +51,17 @@ let loginHandle = () => {
             router.push("/admin")
         } else {
             ElMessage({
-                message: '用户名密码错误，请重新登录',
+                message: res.data.msg,
                 type: 'error',
             })
+            waiting.value = false;
         }
     }).catch((error) => {
         ElMessage({
             message: error.code,
             type: 'error',
         })
+        waiting.value = false;
     })
 }
 </script>

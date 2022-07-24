@@ -1,26 +1,58 @@
 <script setup>
-import { reactive } from 'vue'
-let article = reactive({
-    title: "Vue",
-    content: " # HAHAH\n ### DADFAS \n ```python\n import pandas\n print(\"hello world\")\n```\n ### DADFAS \n### DADFAS \n### DADFAS \n### DADFAS \n### DADFAS \n### DADFAS \n### DADFAS \n### DADFAS \n### DA### DADFAS \nDFAS \n### DADFAS \n"
+import { reactive, onMounted } from "vue";
+import axios from 'axios'
+import { ElMessage } from "element-plus";
+import { useRouter } from "vue-router";
+const router = useRouter()
+let initData = reactive({
+    article: {
+        title: '',
+        content: ''
+    }
 })
+let getTypeList = async (id) => {
+    await axios({
+        url: `http://127.0.0.1:8000/api/v1/front/blog/${id}`,
+        method: "get",
+    })
+        .then(function (res) {
+            if (res.data.status === 200) {
+                console.log(res.data);
+                initData.article = res.data.data;
+            } else {
+                ElMessage({
+                    message: res.data.msg,
+                    type: "error",
+                });
+            }
+        })
+        .catch((error) => {
+            ElMessage({
+                message: error.code,
+                type: "error",
+            });
+        });
+};
 
+onMounted(() => {
+    let paths = router.currentRoute.value.fullPath.split("/")
+    getTypeList(paths[paths.length - 1])
+})
 </script>
 
 <template>
     <div class="article">
         <article class="content animated fadeIn">
             <p class="title">
-                {{ article.title }}
+                {{ initData.article.title }}
             </p>
-            <v-md-editor :model-value="article.content" mode="preview"></v-md-editor>
+            <v-md-editor :model-value="initData.article.content" mode="preview"></v-md-editor>
             <router-link class="backBtn" tag="button" to="/"><i class="el-icon-position"></i>返回</router-link>
         </article>
     </div>
 </template>
 
 <style scoped="scoped">
-
 .article {
     min-height: 1000px;
 }

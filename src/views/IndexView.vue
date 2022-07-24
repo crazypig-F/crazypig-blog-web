@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted, onUpdated } from 'vue'
+import { reactive, onMounted, onUpdated } from 'vue'
 import Header from "../components/layout/Header.vue"
 import Footer from "../components/layout/Footer.vue"
 const data = reactive({
@@ -35,11 +35,6 @@ onMounted(() => {
     }, 20000)
     changebg()
 })
-
-onUpdated(() => {
-})
-
-
 
 </script>
 

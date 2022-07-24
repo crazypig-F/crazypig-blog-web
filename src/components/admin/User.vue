@@ -1,12 +1,16 @@
 <script setup>
-import { ElCard, ElRow, ElCol, ElButton, ElTable, ElTableColumn, ElAvatar } from "element-plus";
 import { ref, reactive } from "vue";
 let userList = reactive([])
 let search = ref("")
 </script>
 
 <template>
-    <div>
+        <!--    面包屑导航区-->
+        <el-breadcrumb separator="/">
+            <el-breadcrumb-item :to="{ path: '/admin' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+        </el-breadcrumb>
+        <br>
         <el-card shadow="never">
             <el-row :gutter="5">
                 <el-col :span="8">
@@ -31,9 +35,9 @@ let search = ref("")
                 </el-table-column>
                 <el-table-column label="最近登录" prop="loginTime">
                     <template slot-scope="scope">{{ scope.row.lastLoginTime === null ? scope.row.createTime :
-                            scope.row.lastLoginTime
-                            | dataFormat3
-                    }}</template>
+                        scope.row.lastLoginTime
+                        | dataFormat3
+                        }}</template>
                 </el-table-column>
                 <el-table-column label="地址">
                     <template slot-scope="scope">{{ scope.row.loginProvince + ' ' + scope.row.loginCity }}</template>
@@ -54,6 +58,4 @@ let search = ref("")
                 </el-table-column>
             </el-table>
         </el-card>
-    </div>
-
 </template>

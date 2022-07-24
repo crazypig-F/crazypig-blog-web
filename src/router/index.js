@@ -19,10 +19,7 @@ const routes = [
         children: [
             { path: '/index', component: () => import("../components/Index.vue") },
             { path: '/about', component: () => import("../components/About.vue") },
-            { path: '/blogInfo', component: () => import("../components/Article.vue") },
-            { path: '/project', component: () => import("../components/Project.vue") },
-            { path: '/comment', component: () => import("../components/Comment.vue") },
-            { path: '/essay', component: () => import("../components/Essay.vue") },
+            { path: '/article/:id', component: () => import("../components/Article.vue") },
         ]
     },
     {
@@ -34,7 +31,7 @@ const routes = [
             // from 代表从哪个路径跳转而来
             // next 是一个函数，表示放行
             // next() 放行  next('login') 强制跳转
-            const adminInfo = JSON.parse(window.sessionStorage.getItem('admin'))
+            const adminInfo = JSON.parse(window.localStorage.getItem('admin'))
             if (!adminInfo) return next('/error')
             else {
                 const administrator = adminInfo.administrator
@@ -48,13 +45,9 @@ const routes = [
             { path: '/admin/blog', component: () => import('../components/admin/Blog.vue') },
             { path: '/admin/blog-input', component: () => import('../components/admin/BlogInput.vue') },
             { path: '/admin/administrator', component: () => import('../components/admin/Administrator.vue') },
-            { path: '/admin/type', component: () => import('../components/admin/Type.vue') },
-            { path: '/admin/tag', component: () => import('../components/admin/Tag.vue') },
-            { path: '/admin/comment', component: () => import('../components/admin/Comment.vue') },
-            { path: '/admin/essay', component: () => import('../components/admin/Essay.vue') },
-            { path: '/admin/project', component: () => import('../components/admin/Project.vue') },
+            { path: '/admin/type', component: () => import('../components/admin/type/Type.vue') },
+            { path: '/admin/tag', component: () => import('../components/admin/tag/Tag.vue') },
             { path: '/admin/user', component: () => import('../components/admin/User.vue') },
-            { path: '/admin/picture', component: () => import('../components/admin/Picture.vue') }
         ]
     }
 ]

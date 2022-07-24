@@ -6,6 +6,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import router from './router'
 import VueMarkdownEditor from '@kangc/v-md-editor';
+import createHighlightLinesPlugin from '@kangc/v-md-editor/lib/plugins/highlight-lines/index';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
 import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
 import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
@@ -19,7 +20,7 @@ import Prism from 'prismjs';
 
 VueMarkdownEditor.use(vuepressTheme, {
     Prism,
-});
+}, createHighlightLinesPlugin());
 
 
 const app = createApp(App)
