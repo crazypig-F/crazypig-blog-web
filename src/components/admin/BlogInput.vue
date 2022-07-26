@@ -268,13 +268,6 @@ let publishBlog = async () => {
 </template>
 
 <style scoped lang="less">
-.el-form /deep/ .el-form-item__content {
-    line-height: 23px;
-}
-
-.el-card /deep/ .el-card__body {
-    padding: 10px;
-}
 
 .avatar-uploader {
     width: 78px;
@@ -284,10 +277,9 @@ let publishBlog = async () => {
     border-radius: 6px;
     cursor: pointer;
 
-    avatar {
+    .avatar {
         width: 78px;
         height: 78px;
-        display: block;
     }
 }
 

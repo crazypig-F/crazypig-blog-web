@@ -1,5 +1,5 @@
 {
-  "name": "moti-blog-vue-background",
+  "name": "crazypig-blog-web",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -8,14 +8,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@highlightjs/vue-plugin": "^2.1.0",
     "@kangc/v-md-editor": "^2.3.15",
     "animate.css": "^4.1.1",
     "axios": "^0.27.2",
     "echarts": "^5.3.3",
     "element-plus": "^2.2.9",
+    "highlight.js": "^11.6.0",
+    "marked": "^4.0.18",
     "vue": "^3.2.25",
     "vue-cookies": "^1.8.1",
     "vue-router": "^4.1.1",
+    "vue3-calendar-heatmap": "^2.0.0",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

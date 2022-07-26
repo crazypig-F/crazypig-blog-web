@@ -131,10 +131,9 @@ let createType = async () => {
     border-radius: 6px;
     cursor: pointer;
 
-    avatar {
+    .avatar {
         width: 78px;
         height: 78px;
-        display: block;
     }
 }
 

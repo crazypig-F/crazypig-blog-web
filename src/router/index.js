@@ -20,6 +20,9 @@ const routes = [
             { path: '/index', component: () => import("../components/Index.vue") },
             { path: '/about', component: () => import("../components/About.vue") },
             { path: '/article/:id', component: () => import("../components/Article.vue") },
+            { path: '/tag/:id', component: () => import("../components/Tag.vue") },
+            { path: '/type/:id', component: () => import("../components/Type.vue") },
+            { path: '/timeline', component: () => import("../components/TimeLine.vue") },
         ]
     },
     {
